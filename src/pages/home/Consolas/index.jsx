@@ -31,8 +31,6 @@ const SectionConsole = () => {
                         <CardItem key={index + item.nombre} name={item.nombre} price ={item.precio} stock= {item.stock} imageURL={item.imageURL} />
                     )
                 })
-
-
             }
         </Box>
     )
