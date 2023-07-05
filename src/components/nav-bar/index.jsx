@@ -123,7 +123,7 @@ const NavBar = () => {
             size="large"
             aria-label="show 3 new purchases"
             color="inherit"
-        >
+        >c
             <Badge badgeContent={3} color="error">
             <ShoppingCartIcon />
             </Badge>
