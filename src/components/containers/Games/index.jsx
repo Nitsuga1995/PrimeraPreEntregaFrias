@@ -1,16 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import CardItem from "../../../components/card-item";
-import { getConsole } from "./productos";
+import { getGames } from "./productos";
 import React from "react";
 
-const SectionConsole = () => {
+const SectionJuegos = () => {
     const [items, setItem] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
 
         setLoading(true);
-        getConsole()
+        getGames()
         .then((res)=> {
             setItem(res)
         })
@@ -21,7 +21,7 @@ const SectionConsole = () => {
 
 
     return (
-        <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={15}>
+        <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={16} flexWrap={'wrap'}>
             {
                 loading ?
                 <Typography>cargando...</Typography>
@@ -36,4 +36,4 @@ const SectionConsole = () => {
     )
 }
 
-export default SectionConsole;
+export default SectionJuegos;

@@ -1,8 +1,8 @@
 import { Box, Tab, Tabs } from '@mui/material'
 import React from 'react'
-import SectionJuegos from '../../pages/home/Juegos'
-import SectionConsole from '../../pages/home/Consolas'
-import SectionAmiibos from '../../pages/home/Amiibos'
+import SectionJuegos from '../containers/Games'
+import SectionConsole from '../containers/Console'
+import SectionAmiibos from '../containers/Amiibos'
 
 const TabsComponent = () => {
     const [selected, setSelected] = React.useState ('juegos')
