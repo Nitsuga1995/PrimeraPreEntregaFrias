@@ -1,7 +1,6 @@
-import { Box, Typography } from "@mui/material";
-import CardItem from "../../../components/card-item";
-import { getGames } from "./productos";
+import { listGames } from "../../../sdk/games";
 import React from "react";
+import ListElements from "../list-elements";
 
 const SectionJuegos = () => {
     const [items, setItem] = React.useState([]);
@@ -10,9 +9,14 @@ const SectionJuegos = () => {
     React.useEffect(() => {
 
         setLoading(true);
-        getGames()
+        listGames()
+        .then((res) => res.json())
         .then((res)=> {
             setItem(res)
+        })
+        .catch(() => {
+            alert('Error al cargar los juegos');
+            setLoading(false)
         })
         .finally(() => {
             setLoading(false);
@@ -21,18 +25,7 @@ const SectionJuegos = () => {
 
 
     return (
-        <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={16} flexWrap={'wrap'}>
-            {
-                loading ?
-                <Typography>cargando...</Typography>
-                :
-                items?.map((item, index) => {
-                    return (
-                        <CardItem key={index + item.nombre} name={item.nombre} price ={item.precio} stock= {item.stock} imageURL={item.imageURL} />
-                    )
-                })
-            }
-        </Box>
+        <ListElements items={items} loading={loading} />
     )
 }
 

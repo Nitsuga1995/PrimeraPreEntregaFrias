@@ -1,7 +1,6 @@
-import { Box, Typography } from "@mui/material";
-import CardItem from "../../../components/card-item";
-import { getAmiibos } from "./productos";
+import { listAmiibos } from "../../../sdk/Amiibos"
 import React from "react";
+import ListElements from "../list-elements"
 
 const SectionAmiibos = () => {
     const [items, setItem] = React.useState([]);
@@ -10,9 +9,14 @@ const SectionAmiibos = () => {
     React.useEffect(() => {
 
         setLoading(true);
-        getAmiibos()
+        listAmiibos()
+        .then((res) => res.json())
         .then((res)=> {
             setItem(res)
+        })
+        .catch(() => {
+            alert('Error al cargar los amiibos');
+            setLoading(false)
         })
         .finally(() => {
             setLoading(false);
@@ -21,18 +25,7 @@ const SectionAmiibos = () => {
 
 
     return (
-        <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={15}>
-            {
-                loading ?
-                <Typography>cargando...</Typography>
-                :
-                items?.map((item, index) => {
-                    return (
-                        <CardItem key={index + item.nombre} name={item.nombre} price ={item.precio} stock= {item.stock} imageURL={item.imageURL} />
-                    )
-                })
-            }
-        </Box>
+        <ListElements items={items} loading={loading} />
     )
 }
 

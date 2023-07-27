@@ -1,7 +1,6 @@
-import { Box, Typography } from "@mui/material";
-import CardItem from "../../card-item";
-import { getConsole } from "./productos";
 import React from "react";
+import { listConsola } from "../../../sdk/consola"
+import ListElements from "../list-elements"
 
 const SectionConsole = () => {
     const [items, setItem] = React.useState([]);
@@ -10,9 +9,14 @@ const SectionConsole = () => {
     React.useEffect(() => {
 
         setLoading(true);
-        getConsole()
+        listConsola()
+        .then((res) => res.json())
         .then((res)=> {
             setItem(res)
+        })
+        .catch(() => {
+            alert('Error al cargar las consolas');
+            setLoading(false)
         })
         .finally(() => {
             setLoading(false);
@@ -21,18 +25,7 @@ const SectionConsole = () => {
 
 
     return (
-        <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={15}>
-            {
-                loading ?
-                <Typography>cargando...</Typography>
-                :
-                items?.map((item, index) => {
-                    return (
-                        <CardItem key={index + item.nombre} name={item.nombre} price ={item.precio} stock= {item.stock} imageURL={item.imageURL} />
-                    )
-                })
-            }
-        </Box>
+        <ListElements items={items} loading={loading} />
     )
 }
 
